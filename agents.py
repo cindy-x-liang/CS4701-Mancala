@@ -146,3 +146,99 @@ class MinimaxAgent:
                 v = newVal
                 actionFinal = action
         return actionFinal,v
+
+
+
+class AlphaBetaAgent:
+    def __init__(self,depth):
+       self.depth = depth
+
+    def getAction(self, gameState: GameState):
+        
+        action,score = self.max_value(gameState,self.depth * 2,float('-inf'),float('inf'))
+        return action
+        "*** END YOUR CODE HERE ***"
+    def value(self,state,depth,alpha,beta):
+        # print(depth)
+        # state.printBoard()
+        # print(state.turn)
+        if depth == 0 or state.gameOver():
+            return None,state.getScore()[1]
+        if state.turn == 'p2':
+            action,score = self.max_value(state,depth,alpha,beta)
+            return action,score
+        else:
+            action,score =  self.min_value(state,depth,alpha,beta)
+            return None,score
+    def max_value(self,state,depth,alpha,beta):
+        v = float('-inf')
+        actionFinal = None
+        for action in state.getLegalActions():
+            successor = state.generateSuccessor(action)
+            a,newVal = self.value(successor,depth-1,alpha,beta) 
+            if newVal > v:
+                v = newVal
+                actionFinal = action
+            if v > beta:
+                return actionFinal,v
+            alpha = max(alpha,v)
+        return actionFinal,v
+    
+
+    def min_value(self,state,depth,alpha,beta):
+        v = float('inf')
+        actionFinal = None
+        
+        for action in state.getLegalActions():
+            successor= state.generateSuccessor(action)
+            a,newVal = self.value(successor,depth-1 ,alpha,beta)
+            if newVal < v:
+                v = newVal
+                actionFinal = action
+            if v < alpha:
+                return actionFinal,v
+            beta = min(beta,v)
+        return actionFinal,v
+
+class ExpectiMax:
+    def __init__(self,depth):
+       self.depth = depth
+
+    def getAction(self, gameState: GameState):
+        
+        action,score = self.max_value(gameState,self.depth * 2)
+        return action
+        "*** END YOUR CODE HERE ***"
+    def value(self,state,depth):
+        # print(depth)
+        # state.printBoard()
+        # print(state.turn)
+        if depth == 0 or state.gameOver():
+            return None,state.getScore()[1]
+        if state.turn == 'p2':
+            action,score = self.max_value(state,depth)
+            return action,score
+        else:
+            action,score =  self.exp_value(state,depth)
+            return None,score
+    def max_value(self,state,depth):
+        v = float('-inf')
+        actionFinal = None
+        for action in state.getLegalActions():
+            successor = state.generateSuccessor(action)
+            a,newVal = self.value(successor,depth-1) 
+            if newVal > v:
+                v = newVal
+                actionFinal = action
+        return actionFinal,v
+    
+
+    def exp_value(self,state,depth):
+        v = 0
+        actionFinal = None
+        
+        for action in state.getLegalActions():
+            successor= state.generateSuccessor(action)
+            a,newVal = self.value(successor,depth-1 )
+            v+= (newVal) * (1/len(state.getLegalActions()))
+        return actionFinal,v
