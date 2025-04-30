@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 import random
-from agents import GameState, MinimaxAgent, AlphaBetaAgent,ExpectiMax
+from mancalai.agents import GameState, MinimaxAgent, AlphaBetaAgent,ExpectiMax
 
 app = Flask(__name__)
 
