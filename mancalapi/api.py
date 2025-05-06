@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import random
+import time
 from mancalai.agents import GameState, MinimaxAgent, AlphaBetaAgent,ExpectiMax
 
 app = Flask(__name__)
@@ -7,6 +8,8 @@ app = Flask(__name__)
 minimax = MinimaxAgent(2)
 alphabeta = AlphaBetaAgent(2)
 expectimax = ExpectiMax(2)
+
+DELAY = 2
 
 @app.route('/next_state', methods=['POST'])
 def next_state():
@@ -34,6 +37,8 @@ def minimax_action():
     turn = data['turn']
     game = GameState(board, turn)
 
+    time.sleep(DELAY)
+
     legal_moves = game.getLegalActions()
     if not legal_moves:
         return jsonify({'error': 'No legal moves'}), 400
@@ -50,6 +55,8 @@ def alphabeta_action():
     board = data['board']
     turn = data['turn']
     game = GameState(board, turn)
+
+    time.sleep(DELAY)
 
     legal_moves = game.getLegalActions()
     if not legal_moves:
@@ -68,6 +75,8 @@ def minimax_half_action():
     turn = data['turn']
     game = GameState(board, turn)
 
+    time.sleep(DELAY)
+    
     legal_moves = game.getLegalActions()
     if not legal_moves:
         return jsonify({'error': 'No legal moves'}), 400
