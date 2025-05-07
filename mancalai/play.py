@@ -5,7 +5,7 @@ board = {'p1':[4,4,4,4,4,4,0],'p2':[4,4,4,4,4,4,0]}
 turn = 'p1'
 game = GameState(board,turn)
 minimax = MinimaxAgent(2)
-minimax2 = MinimaxAgent(2,1)
+minimax2 = MinimaxAgent(2,'p1')
 alphabeta = AlphaBetaAgent(2)
 expectimax = ExpectiMax(2)
 
@@ -109,7 +109,7 @@ else:
       if game.turn == 'p1':
         action = minimax2.getAction(game)
       else:
-        action =  expectimax.getAction(game)
+        action =  minimax.getAction(game)
 
       print('Player ' + game.turn + ' took ' + str(action))
       game = game.generateSuccessor(action)
