@@ -18,10 +18,7 @@ class GameState:
     return sol
   
   def generateSuccessor(self,action):
-    board_copy = copy.deepcopy(self.board)
-    # board_copy = {}
-    # board_copy['p1'] = self.board['p1']
-    # board_copy['p2'] = self.board['p2']
+    board_copy = copy.deepcopy(self.board) 
 
     stone_count = self.board[self.turn][action]
     board_copy[self.turn][action] = 0
@@ -110,11 +107,8 @@ class MinimaxAgent:
         
         action,score = self.max_value(gameState,self.depth * 2)
         return action
-        "*** END YOUR CODE HERE ***"
+
     def value(self,state,depth):
-        # print(depth)
-        # state.printBoard()
-        # print(state.turn)
         if depth == 0 or state.gameOver():
             return None,state.getScore()[1]
         if state.turn == 'p2':
@@ -154,14 +148,10 @@ class AlphaBetaAgent:
        self.depth = depth
 
     def getAction(self, gameState: GameState):
-        
         action,score = self.max_value(gameState,self.depth * 2,float('-inf'),float('inf'))
         return action
-        "*** END YOUR CODE HERE ***"
+    
     def value(self,state,depth,alpha,beta):
-        # print(depth)
-        # state.printBoard()
-        # print(state.turn)
         if depth == 0 or state.gameOver():
             return None,state.getScore()[1]
         if state.turn == 'p2':
@@ -204,15 +194,11 @@ class ExpectiMax:
     def __init__(self,depth):
        self.depth = depth
 
-    def getAction(self, gameState: GameState):
-        
+    def getAction(self, gameState: GameState): 
         action,score = self.max_value(gameState,self.depth * 2)
         return action
-        "*** END YOUR CODE HERE ***"
+       
     def value(self,state,depth):
-        # print(depth)
-        # state.printBoard()
-        # print(state.turn)
         if depth == 0 or state.gameOver():
             return None,state.getScore()[1]
         if state.turn == 'p2':
@@ -221,6 +207,7 @@ class ExpectiMax:
         else:
             action,score =  self.exp_value(state,depth)
             return None,score
+        
     def max_value(self,state,depth):
         v = float('-inf')
         actionFinal = None
