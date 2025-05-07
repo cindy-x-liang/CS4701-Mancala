@@ -19,6 +19,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!mancalui/src/lib
 lib64/
 parts/
 sdist/
