@@ -94,14 +94,21 @@ class GameState:
     return False
   
   def getScore(self):
+     if self.gameOver():
+        for i in range(6):
+            self.board['p1'][6] += self.board['p1'][i]
+            self.board['p2'][6] += self.board['p2'][i]
+            self.board['p1'][i] = 0
+            self.board['p2'][i] = 0
      return [self.board['p1'][6],self.board['p2'][6]]
   
 
 # i dont think you will need agent index?
 #check that you don't need nextAgnet index
 class MinimaxAgent:
-    def __init__(self,depth):
+    def __init__(self,depth,player=2):
        self.depth = depth
+       self.player = player
 
     def getAction(self, gameState: GameState):
         
@@ -111,7 +118,7 @@ class MinimaxAgent:
     def value(self,state,depth):
         if depth == 0 or state.gameOver():
            
-            if state.turn == 'p1':
+            if self.player == 1:
                 return None, state.getScore()[0]
             else:
                 return None, state.getScore()[1]
@@ -149,8 +156,9 @@ class MinimaxAgent:
 
 
 class AlphaBetaAgent:
-    def __init__(self,depth):
+    def __init__(self,depth,player =2):
        self.depth = depth
+       self.player = player
 
     def getAction(self, gameState: GameState):
         action,score = self.max_value(gameState,self.depth * 2,float('-inf'),float('inf'))
@@ -158,7 +166,7 @@ class AlphaBetaAgent:
     
     def value(self,state,depth,alpha,beta):
         if depth == 0 or state.gameOver():
-            if state.turn == 'p1':
+            if self.player == 1:
                 return None, state.getScore()[0]
             else:
                 return None, state.getScore()[1]
@@ -199,8 +207,9 @@ class AlphaBetaAgent:
         return actionFinal,v
 
 class ExpectiMax:
-    def __init__(self,depth):
+    def __init__(self,depth,player=2):
        self.depth = depth
+       self.player = player
 
     def getAction(self, gameState: GameState): 
         action,score = self.max_value(gameState,self.depth * 2)
@@ -208,7 +217,7 @@ class ExpectiMax:
        
     def value(self,state,depth):
         if depth == 0 or state.gameOver():
-            if state.turn == 'p1':
+            if self.player == 1:
                 return None, state.getScore()[0]
             else:
                 return None, state.getScore()[1]
