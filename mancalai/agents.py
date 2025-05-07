@@ -110,7 +110,12 @@ class MinimaxAgent:
 
     def value(self,state,depth):
         if depth == 0 or state.gameOver():
-            return None,state.getScore()[1]
+           
+            if state.turn == 'p1':
+                return None, state.getScore()[0]
+            else:
+                return None, state.getScore()[1]
+
         if state.turn == 'p2':
             action,score = self.max_value(state,depth)
             return action,score
@@ -153,7 +158,10 @@ class AlphaBetaAgent:
     
     def value(self,state,depth,alpha,beta):
         if depth == 0 or state.gameOver():
-            return None,state.getScore()[1]
+            if state.turn == 'p1':
+                return None, state.getScore()[0]
+            else:
+                return None, state.getScore()[1]
         if state.turn == 'p2':
             action,score = self.max_value(state,depth,alpha,beta)
             return action,score
@@ -200,7 +208,10 @@ class ExpectiMax:
        
     def value(self,state,depth):
         if depth == 0 or state.gameOver():
-            return None,state.getScore()[1]
+            if state.turn == 'p1':
+                return None, state.getScore()[0]
+            else:
+                return None, state.getScore()[1]
         if state.turn == 'p2':
             action,score = self.max_value(state,depth)
             return action,score
