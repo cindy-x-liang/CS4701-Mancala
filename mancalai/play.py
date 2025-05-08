@@ -1,6 +1,9 @@
 from agents import GameState, MinimaxAgent, AlphaBetaAgent,ExpectiMax
 import random
 
+# chance of minimax agent playing for game choice 4
+MINIMAX_CHANCE = 0.5
+
 board = {'p1':[4,4,4,4,4,4,0],'p2':[4,4,4,4,4,4,0]}
 turn = 'p1'
 game = GameState(board,turn)
@@ -14,7 +17,7 @@ gamechoice = int(input('Select what kind of game you want to play'
 '\n 1 for human v minimax'
 '\n 2 for human v alpha beta pruning'
 '\n 3 for human v expectimax'
-'\n 4 for human v minimax half of the time\n'
+'\n 4 for human v minimax ' + str(MINIMAX_CHANCE) + ' of the time'
 '\n 5 for ai v ai\n'))
 
 if gamechoice == 0:
@@ -89,7 +92,7 @@ elif gamechoice == 4:
         action =  input("Enter your move: ")
         action = int(action)
       else:
-        if random.random() < .5:
+        if random.random() < MINIMAX_CHANCE:
           action = minimax.getAction(game)
         else:
           action = random.choice(game.getLegalActions())
