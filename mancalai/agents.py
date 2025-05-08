@@ -37,6 +37,7 @@ class GameState:
         opp_side = 'p2' if self.turn == 'p1' else 'p1'
         board_copy[self.turn][6]+=board_copy[opp_side][5-curr_index]
         board_copy[opp_side][5-curr_index] = 0
+        board_copy[self.turn][curr_index] = 0
 
       #generating the next position
       if curr_index == 6 and curr_side == self.turn:
@@ -78,6 +79,13 @@ class GameState:
     # Print P1's side
     print(f"P2 {p2[6]} [ {'  '.join(map(str, p2[:6][::-1]))} ]")
     print("      (5)(4)(3)(2)(1)(0)\n")
+    
+    totalPieces = 0
+    for i in p1:
+       totalPieces +=i
+    for i in p2:
+       totalPieces +=i
+    print(totalPieces)
 
      
   def gameOver(self):
@@ -100,6 +108,7 @@ class GameState:
             self.board['p2'][6] += self.board['p2'][i]
             self.board['p1'][i] = 0
             self.board['p2'][i] = 0
+     
      return [self.board['p1'][6],self.board['p2'][6]]
   
 
