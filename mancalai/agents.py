@@ -64,11 +64,7 @@ class GameState:
        return GameState(board_copy,'p2' if self.turn == 'p1' else 'p1')
 
           
-  #printboard function is taken by chatgpt
   def printBoard(self):
-    """
-    Prints the Mancala board in a readable format.
-    """
     p1 = self.board['p1']
     p2 = self.board['p2']
 
@@ -110,7 +106,33 @@ class GameState:
             self.board['p2'][i] = 0
      
      return [self.board['p1'][6],self.board['p2'][6]]
-  
+
+def evaluate(state, player):
+    if player == 'p1':
+       opp_side = 'p2'
+    else:
+       opp_side = 'p1'
+
+    scores = state.board[player][6] - state.board[opp_side][6]
+    pits = sum(state.board[player][:6]) - sum(state.board[opp_side][:6])
+
+    extra_turn = 0
+    for i in range(6):
+        if state.turn == player and state.board[player][i] == (6 - i):
+            extra_turn += 1
+
+    capture = 0
+    for i in range(6):
+        curr_val = state.board[player][:6][i]
+        if curr_val != 0:    
+            final = i + curr_val
+            if final != 6:
+                if final < 6 and state.board[player][:6][final] == 0 and state.board[opp_side][:6][5 - final] > 0:
+                    capture += state.board[opp_side][:6][5 - final] + 1  
+
+ 
+    return 4 * scores + 0.75 * pits + 2.5 * capture +    extra_turn
+
 
 # i dont think you will need agent index?
 #check that you don't need nextAgnet index
@@ -123,14 +145,16 @@ class MinimaxAgent:
         
         action,score = self.max_value(gameState,self.depth * 2)
         return action
+    
 
     def value(self,state,depth):
         if depth == 0 or state.gameOver():
-           
-            if self.player == 'p1':
-                return None, state.getScore()[0]
-            else:
-                return None, state.getScore()[1]
+            return None, evaluate(state,self.player)
+            # if self.player == 'p1':
+            #     return None, evaluate(state,self.player)
+            #     return None, state.getScore()[0]
+            # else:
+            #     return None, state.getScore()[1]
 
         if state.turn == self.player:
             action,score = self.max_value(state,depth)
@@ -175,10 +199,11 @@ class AlphaBetaAgent:
     
     def value(self,state,depth,alpha,beta):
         if depth == 0 or state.gameOver():
-            if self.player == 'p1':
-                return None, state.getScore()[0]
-            else:
-                return None, state.getScore()[1]
+            return None, evaluate(state,self.player)
+            # if self.player == 'p1':
+            #     return None, state.getScore()[0]
+            # else:
+            #     return None, state.getScore()[1]
         if state.turn == self.player:
             action,score = self.max_value(state,depth,alpha,beta)
             return action,score
@@ -226,10 +251,11 @@ class ExpectiMax:
        
     def value(self,state,depth):
         if depth == 0 or state.gameOver():
-            if self.player == 'p1':
-                return None, state.getScore()[0]
-            else:
-                return None, state.getScore()[1]
+            return None, evaluate(state,self.player)
+            # if self.player == 'p1':
+            #     return None, state.getScore()[0]
+            # else:
+            #     return None, state.getScore()[1]
         if state.turn == self.player:
             action,score = self.max_value(state,depth)
             return action,score
