@@ -7,10 +7,11 @@ MINIMAX_CHANCE = 0.5
 board = {'p1':[4,4,4,4,4,4,0],'p2':[4,4,4,4,4,4,0]}
 turn = 'p1'
 game = GameState(board,turn)
-minimax = MinimaxAgent(2)
-minimax2 = MinimaxAgent(2,'p1')
-alphabeta = AlphaBetaAgent(2)
-expectimax = ExpectiMax(2)
+minimax = MinimaxAgent(2,'p1')
+minimax2 = MinimaxAgent(2,'p2')
+alphabeta = AlphaBetaAgent(2,'p1')
+alphabeta2 = AlphaBetaAgent(2,'p2')
+expectimax = ExpectiMax(2,'p1')
 
 gamechoice = int(input('Select what kind of game you want to play'
 '\n 0 for human v human'
@@ -110,9 +111,9 @@ else:
       print(game.turn + "'s turn")
       game.printBoard()
       if game.turn == 'p1':
-        action = minimax2.getAction(game)
+        action = alphabeta.getAction(game)
       else:
-        action =  minimax.getAction(game)
+        action =  alphabeta2.getAction(game)
 
       print('Player ' + game.turn + ' took ' + str(action))
       game = game.generateSuccessor(action)
