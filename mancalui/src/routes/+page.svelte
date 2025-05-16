@@ -198,6 +198,8 @@
 		{isGameOver}
 	  />
 	</div>
+
+	<p>Total: {gameState.board.p1.reduce((s, c) => s + c, 0) + gameState.board.p2.reduce((s, c) => s + c, 0)}</p>
   </main>
   
   <style>

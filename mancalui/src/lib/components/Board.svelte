@@ -72,130 +72,118 @@
     </div>
   </div>
   
-  <style>
-    /* Overall container styling */
-.board-container {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-}
+<style>
+  .board-container {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
-/* Main board styling */
-.board {
-  display: flex;
-  align-items: center;
-  background-color: #8d6e63; /* Muted brown */
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  margin-bottom: 20px;
-}
+  .board {
+    display: flex;
+    align-items: center;
+    background-color: #8d6e63;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+  }
 
-/* Play area (middle section with the pits) */
-.play-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+  .play-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
 
-/* Rows of pits */
-.pits {
-  display: flex;
-  justify-content: space-around;
-}
+  .pits {
+    display: flex;
+    justify-content: space-around;
+  }
 
-/* Individual pit styling - base style */
-.pit {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
-  margin: 0 5px;
-}
+  .pit {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    margin: 0 5px;
+  }
 
-/* Different colors for each player's pits */
-.pits-p1 .pit {
-  background-color: #5D4037; /* Darker brown for player 1 */
-}
+  .pits-p1 .pit {
+    background-color: #5D4037;
+  }
 
-.pits-p2 .pit {
-  background-color: #8D6E63; /* Lighter brown for player 2/AI */
-}
+  .pits-p2 .pit {
+    background-color: #8D6E63;
+  }
 
-/* Clickable pits */
-.pit.clickable {
-  cursor: pointer;
-}
+  .pit.clickable {
+    cursor: pointer;
+  }
 
-.pit.clickable:hover {
-  opacity: 0.8;
-}
+  .pit.clickable:hover {
+    opacity: 0.8;
+  }
 
-/* Mancala store (the large pits on each end) */
-.mancala {
-  padding: 0 10px;
-}
+  .mancala {
+    padding: 0 10px;
+  }
 
-.store {
-  width: 80px;
-  height: 150px;
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
-}
+  .store {
+    width: 80px;
+    height: 150px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.4);
+  }
 
-/* Different colors for each player's stores */
-.mancala-p1 .store {
-  background-color: #5D4037; /* Darker brown for player 1 */
-}
+  .mancala-p1 .store {
+    background-color: #5D4037;
+  }
 
-.mancala-p2 .store {
-  background-color: #8D6E63; /* Lighter brown for player 2/AI */
-}
+  .mancala-p2 .store {
+    background-color: #8D6E63;
+  }
 
-/* Stone count styling */
-.stone-count {
-  font-size: 18px;
-  font-weight: 500;
-  color: #efebe9; /* Light beige */
-}
+  .stone-count {
+    font-size: 18px;
+    font-weight: 500;
+    color: #efebe9;
+  }
 
-/* Player labels */
-.labels {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 100px;
-  color: #424242;
-}
+  .labels {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 100px;
+    color: #424242;
+  }
 
-.player-label {
-  font-size: 16px;
-  font-weight: 500;
-  padding: 4px 12px;
-  border-radius: 4px;
-  background-color: #e0e0e0;
-}
+  .player-label {
+    font-size: 16px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+  }
 
-/* Turn indicator */
-.turn-indicator {
-  text-align: center;
-  margin-top: 15px;
-}
+  .turn-indicator {
+    text-align: center;
+    margin-top: 15px;
+  }
 
-.turn-badge {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-weight: 500;
-  font-size: 14px;
-  background-color: #f5f5f5;
-  color: #424242;
-}
-  </style>
+  .turn-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    background-color: #f5f5f5;
+    color: #424242;
+  }
+</style>
