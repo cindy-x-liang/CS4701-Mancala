@@ -30,11 +30,11 @@ class GameState:
       board_copy[curr_side][curr_index] += 1
       stone_count -=1
 
-       #for the capturing rule
-      if stone_count == 0 and curr_index != 6 and board_copy[self.turn][curr_index] == 1 and curr_side == self.turn:
+      #for the capturing rule
+      opp_side = 'p2' if self.turn == 'p1' else 'p1'
+      if stone_count == 0 and curr_index != 6 and board_copy[opp_side][5-curr_index] >= 1 and curr_side == self.turn:
         # print('capture')
         board_copy[self.turn][6]+=1
-        opp_side = 'p2' if self.turn == 'p1' else 'p1'
         board_copy[self.turn][6]+=board_copy[opp_side][5-curr_index]
         board_copy[opp_side][5-curr_index] = 0
         board_copy[self.turn][curr_index] = 0
@@ -48,10 +48,7 @@ class GameState:
           curr_side = 'p1'
       elif curr_index == 5 and curr_side != self.turn:
         curr_index = 0
-        if self.turn == 'p1':
-          curr_side = 'p1'
-        else:
-          curr_side = 'p2'
+        curr_side = self.turn
       else:
         curr_index +=1
 
