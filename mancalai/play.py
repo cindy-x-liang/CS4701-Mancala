@@ -94,7 +94,7 @@ elif gamechoice == 4:
         action = int(action)
       else:
         if random.random() < MINIMAX_CHANCE:
-          action = minimax.getAction(game)
+          action = minimax.getAction(game,2)
         else:
           action = random.choice(game.getLegalActions())
 

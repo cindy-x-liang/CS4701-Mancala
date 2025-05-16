@@ -65,12 +65,10 @@ class GameState:
     p1 = self.board['p1']
     p2 = self.board['p2']
 
-     # Print P1's side
+ 
     print("\n      (5)(4)(3)(2)(1)(0)")
     print(f"P2 {p2[6]} [ {'  '.join(map(str, p2[:6][::-1]))} ]")
-    
-    # Print P2's side (reversed for correct Mancala layout)
-    
+   
     print(f"P1   [ {'  '.join(map(str, p1[:6]))} ] {p1[6]}")
     print("      (0)(1)(2)(3)(4)(5)\n")
    
@@ -133,8 +131,6 @@ def evaluate(state, player):
     return 3.75 * scores + .75 * pits + 2.5 * capture +  .5*  extra_turn
 
 
-# i dont think you will need agent index?
-#check that you don't need nextAgnet index
 class MinimaxAgent:
     def __init__(self,player='p2'):
        self.player = player
@@ -148,11 +144,6 @@ class MinimaxAgent:
     def value(self,state,depth):
         if depth == 0 or state.gameOver():
             return None, evaluate(state,self.player)
-            # if self.player == 'p1':
-            #     return None, evaluate(state,self.player)
-            #     return None, state.getScore()[0]
-            # else:
-            #     return None, state.getScore()[1]
 
         if state.turn == self.player:
             action,score = self.max_value(state,depth)
@@ -197,10 +188,7 @@ class AlphaBetaAgent:
     def value(self,state,depth,alpha,beta):
         if depth == 0 or state.gameOver():
             return None, evaluate(state,self.player)
-            # if self.player == 'p1':
-            #     return None, state.getScore()[0]
-            # else:
-            #     return None, state.getScore()[1]
+         
         if state.turn == self.player:
             action,score = self.max_value(state,depth,alpha,beta)
             return action,score
@@ -248,10 +236,7 @@ class ExpectiMax:
     def value(self,state,depth):
         if depth == 0 or state.gameOver():
             return None, evaluate(state,self.player)
-            # if self.player == 'p1':
-            #     return None, state.getScore()[0]
-            # else:
-            #     return None, state.getScore()[1]
+      
         if state.turn == self.player:
             action,score = self.max_value(state,depth)
             return action,score
