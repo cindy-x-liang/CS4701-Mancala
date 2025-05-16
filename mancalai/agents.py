@@ -32,10 +32,8 @@ class GameState:
 
       #for the capturing rule
       opp_side = 'p2' if self.turn == 'p1' else 'p1'
-    #   print(board_copy[curr_side][curr_index])
+
       if stone_count == 0 and curr_index != 6 and board_copy[opp_side][5-curr_index] >= 1  and board_copy[self.turn][curr_index] == 1 and curr_side == self.turn:
-    #   if stone_count == 0 and curr_index != 6 and board_copy[opp_side][5-curr_index] >= 1 and curr_side == self.turn:
-        # print('capture')
         board_copy[self.turn][6]+=1
         board_copy[self.turn][6]+=board_copy[opp_side][5-curr_index]
         board_copy[opp_side][5-curr_index] = 0
@@ -67,13 +65,15 @@ class GameState:
     p1 = self.board['p1']
     p2 = self.board['p2']
 
-    # Print P2's side (reversed for correct Mancala layout)
-    print("\n      (0)(1)(2)(3)(4)(5)")
-    print(f"P1   [ {'  '.join(map(str, p1[:6]))} ] {p1[6]}")
-
-    # Print P1's side
+     # Print P1's side
+    print("\n      (5)(4)(3)(2)(1)(0)")
     print(f"P2 {p2[6]} [ {'  '.join(map(str, p2[:6][::-1]))} ]")
-    print("      (5)(4)(3)(2)(1)(0)\n")
+    
+    # Print P2's side (reversed for correct Mancala layout)
+    
+    print(f"P1   [ {'  '.join(map(str, p1[:6]))} ] {p1[6]}")
+    print("      (0)(1)(2)(3)(4)(5)\n")
+   
     
     totalPieces = 0
     for i in p1:
