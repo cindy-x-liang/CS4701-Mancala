@@ -32,6 +32,7 @@ class GameState:
 
       #for the capturing rule
       opp_side = 'p2' if self.turn == 'p1' else 'p1'
+    #   print(board_copy[curr_side][curr_index])
       if stone_count == 0 and curr_index != 6 and board_copy[opp_side][5-curr_index] >= 1  and board_copy[self.turn][curr_index] == 1 and curr_side == self.turn:
     #   if stone_count == 0 and curr_index != 6 and board_copy[opp_side][5-curr_index] >= 1 and curr_side == self.turn:
         # print('capture')
@@ -129,7 +130,7 @@ def evaluate(state, player):
                     capture += state.board[opp_side][5 - final] + 1  
 
  
-    return 3.75 * scores + 0.75 * pits + 2.75 * capture +    extra_turn
+    return 3.75 * scores + .75 * pits + 2.5 * capture +  .5*  extra_turn
 
 
 # i dont think you will need agent index?

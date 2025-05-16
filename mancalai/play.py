@@ -60,7 +60,7 @@ elif gamechoice == 2:
       action =  input("Enter your move: ")
       action = int(action)
     else:
-      action = alphabeta.getAction(game)
+      action = alphabeta.getAction(game,3)
 
     print('Player ' + game.turn + ' took ' + str(action))
     game = game.generateSuccessor(action)
@@ -77,7 +77,7 @@ elif gamechoice == 3:
       action =  input("Enter your move: ")
       action = int(action)
     else:
-      action = expectimax.getAction(game)
+      action = expectimax.getAction(game,2)
 
     print('Player ' + game.turn + ' took ' + str(action))
     game = game.generateSuccessor(action)
@@ -111,9 +111,9 @@ else:
       print(game.turn + "'s turn")
       game.printBoard()
       if game.turn == 'p1':
-        action = alphabeta.getAction(game,4)
+        action = alphabeta.getAction(game,2)
       else:
-        action =  alphabeta2.getAction(game,4)
+        action =  alphabeta2.getAction(game,2)
 
       print('Player ' + game.turn + ' took ' + str(action))
       game = game.generateSuccessor(action)
