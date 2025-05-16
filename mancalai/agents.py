@@ -137,13 +137,12 @@ def evaluate(state, player):
 # i dont think you will need agent index?
 #check that you don't need nextAgnet index
 class MinimaxAgent:
-    def __init__(self,depth,player='p2'):
-       self.depth = depth
+    def __init__(self,player='p2'):
        self.player = player
 
-    def getAction(self, gameState: GameState):
+    def getAction(self, gameState: GameState, depth: int):
         
-        action,score = self.max_value(gameState,self.depth * 2)
+        action,score = self.max_value(gameState,depth * 2)
         return action
     
 
@@ -189,12 +188,11 @@ class MinimaxAgent:
 
 
 class AlphaBetaAgent:
-    def __init__(self,depth,player ='p2'):
-       self.depth = depth
+    def __init__(self,player ='p2'):
        self.player = player
 
-    def getAction(self, gameState: GameState):
-        action,score = self.max_value(gameState,self.depth * 2,float('-inf'),float('inf'))
+    def getAction(self, gameState: GameState, depth: int):
+        action,score = self.max_value(gameState,depth * 2,float('-inf'),float('inf'))
         return action
     
     def value(self,state,depth,alpha,beta):
@@ -241,12 +239,11 @@ class AlphaBetaAgent:
         return actionFinal,v
 
 class ExpectiMax:
-    def __init__(self,depth,player='p2'):
-       self.depth = depth
+    def __init__(self,player='p2'):
        self.player = player
 
-    def getAction(self, gameState: GameState): 
-        action,score = self.max_value(gameState,self.depth * 2)
+    def getAction(self, gameState: GameState, depth: int): 
+        action,score = self.max_value(gameState,depth * 2)
         return action
        
     def value(self,state,depth):

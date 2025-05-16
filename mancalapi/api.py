@@ -5,11 +5,11 @@ from mancalai.agents import GameState, MinimaxAgent, AlphaBetaAgent,ExpectiMax
 
 app = Flask(__name__)
 
-minimax = MinimaxAgent(2)
-alphabeta = AlphaBetaAgent(2)
-expectimax = ExpectiMax(2)
+minimax = MinimaxAgent()
+alphabeta = AlphaBetaAgent()
+expectimax = ExpectiMax()
 
-DELAY = 2
+DELAY = .5
 
 @app.route('/next_state', methods=['POST'])
 def next_state():
@@ -43,7 +43,7 @@ def minimax_action():
     if not legal_moves:
         return jsonify({'error': 'No legal moves'}), 400
 
-    action = minimax.getAction(game)
+    action = minimax.getAction(game, data['depth'])
 
     return jsonify({
         'action': action
@@ -62,7 +62,7 @@ def alphabeta_action():
     if not legal_moves:
         return jsonify({'error': 'No legal moves'}), 400
 
-    action = alphabeta.getAction(game)
+    action = alphabeta.getAction(game, data['depth'])
 
     return jsonify({
         'action': action
@@ -82,7 +82,7 @@ def minimax_half_action():
         return jsonify({'error': 'No legal moves'}), 400
 
     if random.random() < .5:
-          action = minimax.getAction(game)
+          action = minimax.getAction(game, data['depth'])
     else:
         action = random.choice(game.getLegalActions())
 

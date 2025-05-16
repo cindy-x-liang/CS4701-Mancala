@@ -10,6 +10,7 @@
 	
 	let gameMode: GameMode = 'alphabeta';
 	let gameStatus: string = 'Playing';
+	let depth = 2;
 	let isGameOver: boolean = false;
 	let processingAIMove: boolean = false;
 	
@@ -79,18 +80,18 @@
 	const makeAIMove = async () => {
 	  if (isGameOver) return;
 	  
-	  gameStatus = 'AI is thinking...';
+	  gameStatus = 'AI is thinking... ' + depth + ' steps ahead!';
 	  
 	  try {
-		const aiEndpoint = `/api/${gameMode}_action`;
-		const actionResponse = await fetch(aiEndpoint, {
+		const actionResponse = await fetch(`/api/${gameMode}_action`, {
 		  method: 'POST',
 		  headers: {
 			'Content-Type': 'application/json'
 		  },
 		  body: JSON.stringify({
 			board: gameState.board,
-			turn: gameState.turn
+			turn: gameState.turn,
+			depth: depth
 		  })
 		});
 		
@@ -110,7 +111,7 @@
 		  },
 		  body: JSON.stringify({
 			game_state: gameState,
-			action: aiAction
+			action: aiAction,
 		  })
 		});
 		
@@ -166,6 +167,11 @@
 		gameStatus = `Game mode changed to ${gameMode}`;
 	  }
 	}
+
+	// Handle depth change
+	const handleDepthChange = (newDepth: CustomEvent<number>): void => {
+	  depth = newDepth.detail;
+	}
   </script>
   
   <svelte:head>
@@ -179,8 +185,10 @@
 	  <GameControls 
 		{gameStatus}
 		{gameMode} 
+		{depth}
 		on:restart={restartGame} 
 		on:change={changeGameMode} 
+		on:depthChange={handleDepthChange}
 	  />
 	  
 	  <Board 

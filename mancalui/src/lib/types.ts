@@ -22,3 +22,9 @@ export interface AIActionResponse {
 }
 
 export type GameMode = 'minimax' | 'alphabeta' | 'minimax_half';
+
+
+export interface AISettings {
+  mode: GameMode;
+  depth: number;
+}

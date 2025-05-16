@@ -5,10 +5,12 @@
     
     export let gameStatus: string = 'Playing';
     export let gameMode: GameMode = 'alphabeta';
+    export let depth: number = 2;
     
     const dispatch = createEventDispatcher<{
       restart: void;
       change: Event;
+      depthChange: number;
     }>();
     
     function handleRestart(): void {
@@ -17,6 +19,10 @@
     
     function handleModeChange(event: Event): void {
       dispatch('change', event);
+    }
+
+    const handleDepthChange = (event: Event): void => { 
+      dispatch('depthChange', parseInt((event.target as HTMLInputElement).value));
     }
   </script>
   
@@ -33,6 +39,16 @@
           <option value="alphabeta">Alpha Beta</option>
           <option value="minimax_half">Random (50% Minimax)</option>
         </select>
+        <label for="ai-depth" class="depth-label">AI Depth (higher is harder):</label>
+        <input 
+          type="number" 
+          id="ai-depth" 
+          min="1" 
+          max="8"
+          bind:value={depth}
+          on:change={handleDepthChange}
+          class="depth-input"
+        />
       </div>
       
       <button class="restart-button" on:click={handleRestart}>
