@@ -9,7 +9,7 @@ minimax = MinimaxAgent()
 alphabeta = AlphaBetaAgent()
 expectimax = ExpectiMax()
 
-DELAY = .5
+DELAY = 1.5
 
 @app.route('/next_state', methods=['POST'])
 def next_state():
@@ -44,6 +44,26 @@ def minimax_action():
         return jsonify({'error': 'No legal moves'}), 400
 
     action = minimax.getAction(game, data['depth'])
+
+    return jsonify({
+        'action': action
+    })
+
+
+@app.route('/expectimax_action', methods=['POST'])
+def expectimax_action():
+    data = request.json
+    board = data['board']
+    turn = data['turn']
+    game = GameState(board, turn)
+
+    time.sleep(DELAY)
+
+    legal_moves = game.getLegalActions()
+    if not legal_moves:
+        return jsonify({'error': 'No legal moves'}), 400
+
+    action = expectimax.getAction(game, data['depth'])
 
     return jsonify({
         'action': action

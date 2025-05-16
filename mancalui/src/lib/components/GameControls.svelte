@@ -35,8 +35,9 @@
       <div class="mode-selector">
         <label for="game-mode">AI Strategy:</label>
         <select id="game-mode" bind:value={gameMode} on:change={handleModeChange}>
-          <option value="minimax">Minimax</option>
           <option value="alphabeta">Alpha Beta</option>
+          <option value="expectimax">Expectimax</option>
+          <option value="minimax">Minimax</option>
           <option value="minimax_half">Random (50% Minimax)</option>
         </select>
         <label for="ai-depth" class="depth-label">AI Depth (higher is harder):</label>
